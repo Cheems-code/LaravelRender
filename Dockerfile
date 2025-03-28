@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     unzip \
     nano \
+    git \
     && docker-php-ext-configure gd \
     && docker-php-ext-install gd pdo pdo_mysql pdo_pgsql \
     && a2enmod rewrite
@@ -24,8 +25,11 @@ WORKDIR /var/www/html
 # Copiar archivos del proyecto al contenedor
 COPY . .
 
-# Instalar dependencias de Composer
-RUN composer install --no-dev --optimize-autoloader
+# Instalar dependencias de Composer con soluciones de errores comunes
+RUN composer install --no-dev --optimize-autoloader || { \
+    composer update --no-dev --optimize-autoloader && \
+    composer install --no-dev --optimize-autoloader; \
+}
 
 # Asegurar permisos correctos después de copiar los archivos
 RUN chown -R www-data:www-data /var/www/html && \
