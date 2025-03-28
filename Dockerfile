@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     nano \
     unzip \
     && docker-php-ext-configure gd \
-    && docker-php-ext-install gd pdo pdo_mysql \
+    && docker-php-ext-install gd pdo pdo_mysql pdo_pgsql \
     && a2enmod rewrite
 
 # Configurar DocumentRoot para Laravel
