@@ -29,6 +29,9 @@ WORKDIR /var/www/html
 # Copiar archivos del proyecto al contenedor
 COPY . .
 
+# Instalar dependencias de Composer
+RUN composer install --no-dev --optimize-autoloader
+
 # Asegurar permisos correctos después de copiar los archivos
 RUN chown -R www-data:www-data /var/www/html && \
     chmod -R 755 /var/www/html && \
