@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     nano \
     unzip \
+    libpq-dev \
     && docker-php-ext-configure gd \
     && docker-php-ext-install gd pdo pdo_mysql pdo_pgsql \
     && a2enmod rewrite
